@@ -9,16 +9,24 @@ async function signupService(req,res){
             password:req.body?.password,
         }
         const response= await authService.signup(data)
-        return  res.status(200).send(response)
+        console.log(response)
+        if (response?.name === "ValidationError"){
+            return  res.status(400).send(response)
+        }
+         return  res.status(200).send(response)
         
     } catch (error) {
-        return {error}
+        return  res.status(400).send(error)
     }
 }
-async function signinService(data){
+async function signinService(req,res){
     try {
+        const data={
+            email:req?.body?.email,
+            password:req?.body?.password,
+        }
         const response= await authService.signin(data)
-        return response
+        return res.status(200).send(response)
         
     } catch (error) {
         return {error}

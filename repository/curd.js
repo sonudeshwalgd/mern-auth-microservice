@@ -4,20 +4,17 @@ class curdRepositor{
     }
 
     async create(data){
-        console.log(data)
         try {
-            const response= await this.model.create(data)
-            return response
-            
+            const userCreated= await this.model.create(data)
+            return userCreated
         } catch (error) {
             return {error}
         }
     }
     async get(data){
         try {
-            const response= await this.model.findOne(data)
+            const response= await this.model.findOne(data).select("+password")
             return response
-            
         } catch (error) {
             return {error}
         }
